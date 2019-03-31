@@ -12,7 +12,14 @@ class WorkoutController extends Controller
 
         $data = $request->all();
 
-        $add = new WorkOut();
+        if (isset($data['id'])) {
+            $add = WorkOut::find($data['id']);
+            $msg = 'Workout Updated Successfully';
+        } else {
+            $add = new WorkOut();
+            $msg = 'Workout Added Successfully';
+        }
+
         $add->type = $data['workout_type'];
         $add->date = $data['workout_date'];
         $add->time = $data['workout_time'];
@@ -20,15 +27,20 @@ class WorkoutController extends Controller
         $add->location = $data['workout_location'];
         $add->save();
 
-        return array('status' => 'Success', 'msg' => 'Workout added successfully');
+        return array('status' => 'Success', 'msg' => $msg);
     }
 
     public function getWorkoutData(Request $request)
     {
+        return WorkOut::find($request->id);
+    }
 
-        $data = $request->all();
-        $workout = WorkOut::find($data['id']);
-        return $workout;
+    public function removeWorkoutData($id)
+    {
+
+        $workout = WorkOut::find($id);
+        $workout->delete();
+        return back()->with('status', 'Workout Deleted Successfully');
     }
 
 

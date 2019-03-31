@@ -22,3 +22,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::post('workouts/add', 'WorkoutController@addWorkout');
 Route::post('workouts/fetch', 'WorkoutController@getWorkoutData');
+Route::get('workouts/remove/{id}', 'WorkoutController@removeWorkoutData');

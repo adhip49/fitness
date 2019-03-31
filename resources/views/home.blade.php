@@ -43,7 +43,9 @@
                                     <td>{{ ucfirst($workout->location) }}</td>
                                     <td>
                                         <p data-id="{{ $workout->id  }}" class="edit_workouts_modal">Edit</p>
-                                        Delete
+                                        <a href="{{ url('workouts/remove/'.$workout->id) }}"
+                                           onclick="return confirm('Are you sure you want to delete this workout?');">
+                                            Delete</a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -146,6 +148,7 @@
                 $('#add_workout_form').show();
                 $('.status_show').hide();
                 var id = $(this).data('id');
+                $('#add_workout_form').append('<input type="hidden" id="edit_id" name="id" value="' + id + '">');
                 $.ajax({
                     type: "POST",
                     url: '{{ url('workouts/fetch/') }}',
@@ -200,8 +203,9 @@
                     console.log("Added");
                     $('#add_workout_form').hide();
                     $('.status_show').show().html(response.msg);
-                    var table = $('#example').DataTable();
-                    table.ajax.reload();
+                    setTimeout(function () {
+                        location.reload();
+                    }, 500);
 
                 });
 
