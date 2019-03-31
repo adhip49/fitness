@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\WorkOut;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class WorkoutController extends Controller
 {
@@ -25,6 +26,7 @@ class WorkoutController extends Controller
         $add->time = $data['workout_time'];
         $add->speed = $data['workout_speed'];
         $add->location = $data['workout_location'];
+        $add->user_id = Auth::id();
         $add->save();
 
         return array('status' => 'Success', 'msg' => $msg);
@@ -32,7 +34,7 @@ class WorkoutController extends Controller
 
     public function getWorkoutData(Request $request)
     {
-        return WorkOut::find($request->id);
+        return WorkOut::where('user_id', Auth::id())->where('id', $request->id)->first();
     }
 
     public function removeWorkoutData($id)

@@ -15,6 +15,7 @@ class CreateTableWorkOuts extends Migration
     {
         Schema::create('work_outs', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('user_id');
             $table->string('type');
             $table->string('date');
             $table->integer('time');

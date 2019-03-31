@@ -87,7 +87,7 @@
 
                         <div class="form-group">
                             <label for="add_date">Workout Date:</label>
-                            <input type="text" class="form-control" id="add_date" placeholder="Enter Workout Date"
+                            <input type="text" class="form-control" autocomplete="off" id="add_date" placeholder="Enter Workout Date"
                                    name="workout_date"
                                    required>
                             <div class="valid-feedback">Valid.</div>

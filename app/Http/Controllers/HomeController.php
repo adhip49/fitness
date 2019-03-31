@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\WorkOut;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -24,7 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $data['workouts'] = WorkOut::all();
+        $data['workouts'] = WorkOut::where('user_id', Auth::id())->get();
         return view('home')->with($data);
     }
 }
